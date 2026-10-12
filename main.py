@@ -11,17 +11,20 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = FastAPI()
+
+# Authorize your frontend to talk to this backend
 app.add_middleware(
-    CORSMiddleware, allow_origins=["*"], allow_credentials=True, allow_methods=["*"], allow_headers=["*"]
+    CORSMiddleware,
+    allow_origins=["*"], 
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # Pull credentials securely from the .env file
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 supabase: Client = create_client(SUPABASE_URL, SUPABASE_KEY)
-
-Path("uploads").mkdir(exist_ok=True)
-Path("hls").mkdir(exist_ok=True)
 
 Path("uploads").mkdir(exist_ok=True)
 Path("hls").mkdir(exist_ok=True)
